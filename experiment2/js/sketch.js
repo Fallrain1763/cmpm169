@@ -25,39 +25,40 @@ class MyClass {
     }
 }
 
-let x;
-let y;
-let xSpeed;
-let ySpeed;
-
+// setup() function is called once when the program starts
 function setup() {
-  createCanvas(400, 400);
-  // Initialize ball in the center of the canvas
-  x = width / 2;
-  y = height / 2;
-  // Initialize speed
-  xSpeed = 5;
-  ySpeed = 3;
+    // place our canvas, making it fit our container
+    canvasContainer = $("#canvas-container");
+    let canvas = createCanvas(canvasContainer.width(), canvasContainer.height());
+    canvas.parent("canvas-container");
+    // resize canvas is the page is resized
+    $(window).resize(function() {
+        console.log("Resizing...");
+        resizeCanvas(canvasContainer.width(), canvasContainer.height());
+    });
+    // create an instance of the class
+    myInstance = new MyClass(VALUE1, VALUE2);
+
+    var centerHorz = windowWidth / 2;
+    var centerVert = windowHeight / 2;
 }
 
+// draw() function is called repeatedly, it's the main animation loop
 function draw() {
-  background(220);
-  
-  // Draw ball
-  fill(255, 0, 0);
-  ellipse(x, y, 50, 50);
-  
-  // Update ball position
-  x += xSpeed;
-  y += ySpeed;
-  
-  // Check for bouncing
-  if (x > width - 25 || x < 25) {
-    xSpeed *= -1;
-  }
-  if (y > height - 25 || y < 25) {
-    ySpeed *= -1;
-  }
+    background(220);    
+    // call a method on the instance
+    myInstance.myMethod();
+
+    // Put drawings here
+    var centerHorz = canvasContainer.width() / 2 - 125;
+    var centerVert = canvasContainer.height() / 2 - 125;
+    fill(234, 31, 81);
+    noStroke();
+    rect(centerHorz, centerVert, 250, 250);
+    fill(255);
+    textStyle(BOLD);
+    textSize(140);
+    text("p6*", centerHorz + 10, centerVert + 200);
 }
 
 // mousePressed() function is called once after every time a mouse button is pressed
