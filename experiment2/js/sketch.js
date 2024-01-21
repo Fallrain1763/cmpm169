@@ -52,13 +52,62 @@ function draw() {
     // Put drawings here
     var centerHorz = canvasContainer.width() / 2 - 125;
     var centerVert = canvasContainer.height() / 2 - 125;
-    fill(234, 31, 81);
-    noStroke();
-    rect(centerHorz, centerVert, 250, 250);
-    fill(255);
-    textStyle(BOLD);
-    textSize(140);
-    text("p6*", centerHorz + 10, centerVert + 200);
+     // No ongoing drawing in this example
+    // Define the central point
+  let centerX = canvasContainer.width() / 2
+  let centerY = canvasContainer.height() / 2
+  
+  // Draw the three areas
+  noStroke()
+  
+  // Area 1
+  fill(255,0 ,0);
+  beginShape();
+  vertex(0, height);
+  vertex(0, 0);
+  vertex(centerX, 0);
+  vertex(centerX, centerY);
+  endShape(CLOSE);
+  
+  // Area 2
+  fill(0, 255, 0);
+  beginShape();
+  vertex(centerX, 0);
+  vertex(width, 0);
+  vertex(width, height);
+  vertex(centerX, centerY);
+  endShape(CLOSE);
+  
+  // Area 3
+  fill(0, 0, 255);
+  beginShape();
+  vertex(0, height);
+  vertex(width, height);
+  vertex(centerX, centerY);
+  endShape(CLOSE);
+  
+  var c = "";
+  
+  if(color(get(mouseX, mouseY)).toString() == color(255, 0, 0).toString())
+  {   
+     c = "红";
+     fill(color(0, 255, 255));
+  }
+  else if(color(get(mouseX, mouseY)).toString() == color(0, 255, 0).toString())
+  {   
+     c = "绿";
+    fill(color(255, 0, 255));
+  }
+  else if(color(get(mouseX, mouseY)).toString() == color(0 ,0, 255).toString())
+  {   
+     c = "蓝";
+    fill(color(255, 255, 0));
+  }
+  
+  
+  
+  textSize(48)
+  text(c, mouseX, mouseY)
 }
 
 // mousePressed() function is called once after every time a mouse button is pressed
