@@ -25,6 +25,8 @@ class MyClass {
     }
 }
 
+var t;
+
 // setup() function is called once when the program starts
 function setup() {
     // place our canvas, making it fit our container
@@ -41,24 +43,35 @@ function setup() {
 
     var centerHorz = windowWidth / 2;
     var centerVert = windowHeight / 2;
+
+    background(0);
+    noStroke();
+    t = 0;
 }
 
 // draw() function is called repeatedly, it's the main animation loop
 function draw() {
-    background(220);    
-    // call a method on the instance
-    myInstance.myMethod();
+    // fade the background by giving it a low opacity
+  background(0, 5);
 
-    // Put drawings here
-    var centerHorz = canvasContainer.width() / 2 - 125;
-    var centerVert = canvasContainer.height() / 2 - 125;
-    fill(234, 31, 81);
-    noStroke();
-    rect(centerHorz, centerVert, 250, 250);
-    fill(255);
-    textStyle(BOLD);
-    textSize(140);
-    text("p5*", centerHorz + 10, centerVert + 200);
+  // Draw multiple circles
+ for (let i = 0; i < 100; i++) {
+   // Use noise for x and y to get smooth, continuous changes
+   let x = width * noise(t+i);
+   let y = height * noise(t+i+5);
+ 
+   // Use random for size and color to get more variation
+   let r = random(0, 255);
+   let g = random(0, 255);
+   let b = random(0, 255);
+   let size = random(25, 50);
+   
+   fill(r, g, b);
+   ellipse(x, y, size, size);
+ }
+ 
+ // update time
+ t = t + 0.01;
 }
 
 // mousePressed() function is called once after every time a mouse button is pressed
