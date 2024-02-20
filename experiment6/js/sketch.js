@@ -25,6 +25,9 @@ class MyClass {
     }
 }
 
+let words = [];
+let currentSize = 100;
+
 // setup() function is called once when the program starts
 function setup() {
     // place our canvas, making it fit our container
@@ -41,27 +44,34 @@ function setup() {
 
     var centerHorz = windowWidth / 2;
     var centerVert = windowHeight / 2;
+
+    textSize(200); 
+    textAlign(CENTER, CENTER);
 }
 
 // draw() function is called repeatedly, it's the main animation loop
 function draw() {
-    background(220);    
-    // call a method on the instance
-    myInstance.myMethod();
-
-    // Put drawings here
-    var centerHorz = canvasContainer.width() / 2 - 125;
-    var centerVert = canvasContainer.height() / 2 - 125;
-    fill(234, 31, 81);
-    noStroke();
-    rect(centerHorz, centerVert, 250, 250);
-    fill(255);
-    textStyle(BOLD);
-    textSize(140);
-    text("p5*", centerHorz + 10, centerVert + 200);
+    background(240); 
+  
+    currentSize = map(mouseX, 0, width, 50, 200);
+    textSize(currentSize);
+    
+    for (let i = 0; i < words.length; i++) {
+      let x = width / (words.length + 1) * (i + 1);
+      let y = height / 2;
+      let f = sin(frameCount * 0.05 + i) * 50; 
+      
+      fill(100, mouseY / 2, 200);
+      
+      text(words[i], x, y + f);
+    } 
 }
 
 // mousePressed() function is called once after every time a mouse button is pressed
 function mousePressed() {
-    // code to run when mouse is pressed
+    let newWord = random(['临', '兵', '斗', '者', '皆', '阵', '列', '前', '行']);
+    words.push(newWord);
+    if (words.length > 9) {
+      words.shift(); 
+    }
 }
